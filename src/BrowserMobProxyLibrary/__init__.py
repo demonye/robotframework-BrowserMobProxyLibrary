@@ -65,8 +65,13 @@ class BrowserMobProxyLibrary(object):
         :param options: Dictionary that can hold the port. \
         """
 
+        start_options = {
+            'retry_sleep': options.pop('retry_sleep', 0.5),
+            'retry_count': options.pop('retry_count', 60),
+            'new_process': options.pop('new_process', True),
+        }
         self.server = Server(path=path, options=options)
-        self.server.start()
+        self.server.start(options=start_options)
 
     def stop_local_server(self):
         """This will stop the process running the Browsermob Proxy
